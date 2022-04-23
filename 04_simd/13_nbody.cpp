@@ -29,11 +29,13 @@ int main() {
     invrvec = _mm256_blendv_ps(invrvec, zerovec, mask);
     __m256 invr3vec = _mm256_mul_ps(invrvec,_mm256_mul_ps(invrvec,invrvec));
     __m256 fxvec = _mm256_mul_ps(_mm256_mul_ps(rxvec, mvec),invr3vec);
+    // fx reduction +
     __m256 fx2vec = _mm256_permute2f128_ps(fxvec,fxvec,1);
     fx2vec = _mm256_add_ps(fx2vec,fxvec);
     fx2vec = _mm256_hadd_ps(fx2vec,fx2vec);
     fx2vec = _mm256_hadd_ps(fx2vec,fx2vec);
     __m256 fyvec = _mm256_mul_ps(_mm256_mul_ps(ryvec, mvec),invr3vec);
+    // fx reduction +
     __m256 fy2vec = _mm256_permute2f128_ps(fyvec,fyvec,1);
     fy2vec = _mm256_add_ps(fy2vec,fyvec);
     fy2vec = _mm256_hadd_ps(fy2vec,fy2vec);
