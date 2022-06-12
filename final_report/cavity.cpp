@@ -8,6 +8,7 @@ double square(double x) {
 
 void calc_navier_stokes(int ny, int nx, vector<vector<double>>& u, vector<vector<double>>& v,
 	vector<vector<double>>& p, vector<vector<double>>& b) {
+	// init variable
 	const int nt = 500;
 	const int nit = 50;
 	const double dx = 2.0 / (nx - 1);
@@ -15,7 +16,9 @@ void calc_navier_stokes(int ny, int nx, vector<vector<double>>& u, vector<vector
 	const double dt = 0.01;
 	const double rho = 1.0;
 	const double nu = 0.02;
+	// calc navier stokes
 	for (int n = 0; n < nt; n++) {
+		// calc b
 		for (int j = 1; j < ny - 1; j++) {
 			for (int i = 1; i < nx - 1; i++) {
 				b[j][i] = rho * (1 / dt *
@@ -24,6 +27,7 @@ void calc_navier_stokes(int ny, int nx, vector<vector<double>>& u, vector<vector
 					(v[j][i + 1] - v[j][i - 1]) / (2.0 * dx)) - square((v[j + 1][i] - v[j - 1][i]) / (2.0 * dy)));
 			}
 		}
+		// calc p
 		for (int it = 0; it < nit; it++) {
 			vector<vector<double>> pn(p);
 			for (int j = 1; j < ny - 1; j++) {
@@ -43,6 +47,7 @@ void calc_navier_stokes(int ny, int nx, vector<vector<double>>& u, vector<vector
 				p[ny - 1][j] = 0;
 			}
 		}
+		// calc u, v
 		vector<vector<double>> un(u);
 		vector<vector<double>> vn(v);
 		for (int j = 1; j < ny - 1; j++) {
@@ -76,6 +81,7 @@ void calc_navier_stokes(int ny, int nx, vector<vector<double>>& u, vector<vector
 
 void check(int ny, int nx, vector<vector<double>>& u, vector<vector<double>>& v,
 	vector<vector<double>>& p, vector<vector<double>>& b) {
+	// check for sum of u, v, p, and b
 	double su = 0;
 	double sv = 0;
 	double sp = 0;
@@ -83,20 +89,8 @@ void check(int ny, int nx, vector<vector<double>>& u, vector<vector<double>>& v,
 	for (int j = 0; j < ny; j++) {
 		for (int i = 0; i < nx; i++) {
 			su += u[j][i];
-		}
-	}
-	for (int j = 0; j < ny; j++) {
-		for (int i = 0; i < nx; i++) {
 			sv += v[j][i];
-		}
-	}
-	for (int j = 0; j < ny; j++) {
-		for (int i = 0; i < nx; i++) {
 			sp += p[j][i];
-		}
-	}
-	for (int j = 0; j < ny; j++) {
-		for (int i = 0; i < nx; i++) {
 			sb += b[j][i];
 		}
 	}
