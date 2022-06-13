@@ -1,3 +1,7 @@
+/*
+module load gcc/8.3.0
+make navier
+*/
 #include <vector>
 #include <cstdio>
 using namespace std;

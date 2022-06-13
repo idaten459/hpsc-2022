@@ -1,3 +1,7 @@
+/*
+module load gcc/8.3.0
+make navier_simd 
+*/
 #include <vector>
 #include <cstdio>
 #include <immintrin.h>

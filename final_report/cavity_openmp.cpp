@@ -1,3 +1,8 @@
+/*
+module load gcc/8.3.0
+make navier_openmp
+*/
+
 #include <vector>
 #include <cstdio>
 
